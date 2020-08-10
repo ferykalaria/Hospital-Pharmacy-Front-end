@@ -1,0 +1,159 @@
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  div {
+    background-color: rgb(230, 173, 222);
+  }
+
+  input[type=text],
+  select,
+  textarea {
+    width: 50%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+  }
+
+  label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+  }
+
+  button {
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+
+  .button1 {
+    background-color: white;
+    color: black;
+    border: 2px solid #4CAF50;
+  }
+
+  .button1:hover {
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  .container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+
+  .col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+  }
+
+  .col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+  }
+
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  @media screen and (max-width: 300px) {
+
+    .col-25,
+    .col-75,
+    input[type=Add] {
+      width: 100%;
+      margin-top: 0;
+    }
+  }
+</style>
+
+
+<form *ngIf="!isAdded" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+
+
+  <div class="form-group">
+    <label for="plasma_id">Plasma Id:</label>
+    <input type="number" class="input" name="plasma_id" [(ngModel)]="form.plasma_id" required minlength="3"
+      maxlength="20" #plasma_id="ngModel" />
+  </div>
+
+  <div class="form-group">
+    <label for="plasma_type">Plasma Type:</label>
+    <input type="string" class="input" name="plasma_type" [(ngModel)]="form.plasma_type" required minlength="3"
+      maxlength="20" #plasma_type="ngModel" />
+  </div>
+
+  <div class="form-group">
+    <label for="date">Date:</label>
+    <input type="string" class="input" name="date" [(ngModel)]="form.date" required minlength="3" maxlength="20"
+      #date="ngModel" />
+  </div>
+
+  <div class="form-group">
+    <label for="agree">Agree?:</label>
+    <input type="string" class="input" name="agree" [(ngModel)]="form.agree" required minlength="3"
+      maxlength="20" #agree="ngModel" />
+  </div>
+
+  <div class="form-group">
+    <label for="patient_id">Patient Id:</label>
+    <input type="number" class="input" name="patient_id" [(ngModel)]="form.patient_id" required minlength="3"
+      maxlength="20" #patient_id="ngModel" />
+  </div>
+
+  <p></p>
+
+  <div class="form-group">
+    <button class="button button1" (click)="onSubmit()">Add Info</button>
+    <!-- <button class="button button1" (click)="onSubmit()">Find</button> -->
+    <button class="button button1" (click)="onUpdate()">Update Info</button>
+    <button class="button button1" (click)="onDelete()">Delete Info</button>
+  </div>
+
+  <div class="alert-danger" *ngIf="f.submitted && plasma_id.invalid">
+    <div *ngIf="plasma_id.errors.required">Item Id is required</div>
+    <div *ngIf="plasma_type.errors.required">
+      Plasma type is required
+    </div>
+
+    <div *ngIf="date.errors.required">
+      Date is required
+    </div>
+
+    <div *ngIf="date.errors.required">
+      Patient ID is required
+    </div>
+
+  </div>
+</form>
+
+
+<div class="alert alert-success" *ngIf="isAdded">
+  Information Added.
+</div>
+
+<div class="alert alert-success" *ngIf="isUpdated">
+  Information Updated.
+</div>
+
+<div class="alert alert-success" *ngIf="isDeleted">
+  Information Deleted.
+</div>
+
+
+
+
